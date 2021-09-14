@@ -1,9 +1,11 @@
 package com.example.darkmode;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 
@@ -44,5 +46,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    //Exit Dialog Box
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to Exit?")
+                // if you don't click yes or no in that dialog box but you click another area so it will prevent that
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                       MainActivity.super.onBackPressed();
+                    }
+                })
+        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
     }
 }
